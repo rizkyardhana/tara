@@ -20,6 +20,7 @@ app.use(express.json());
 
 const id = () => crypto.randomUUID();
 const now = () => new Date().toISOString();
+const mysqlDateTime = (value) => value.slice(0, 19).replace('T', ' ');
 
 async function currentUser(request) {
   const token = request.headers.authorization?.replace('Bearer ', '');
@@ -141,7 +142,7 @@ app.post('/api/moods', (request, response) => {
   const mood = { id: id(), ...request.body, timestamp: now() };
   return database.execute(
     'INSERT INTO mood_checkins (id, user_id, mood_score, mood_emoji, factors, notes, checked_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [mood.id, mood.userId ?? null, mood.moodScore, mood.moodEmoji, JSON.stringify(mood.factors ?? []), mood.notes ?? null, mood.timestamp],
+    [mood.id, mood.userId ?? null, mood.moodScore, mood.moodEmoji, JSON.stringify(mood.factors ?? []), mood.notes ?? null, mysqlDateTime(mood.timestamp)],
   ).then(() => response.status(201).json(mood)).catch(() => response.status(500).json({ message: 'Gagal menyimpan check-in' }));
 });
 
@@ -156,7 +157,7 @@ app.post('/api/journals', async (request, response) => {
   const journal = { id: id(), ...request.body, createdAt: now(), updatedAt: now() };
   await database.execute(
     'INSERT INTO journals (id, user_id, title, content, mood_score, tags, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [journal.id, journal.userId ?? null, journal.title ?? null, journal.content ?? journal.notes ?? '', journal.moodScore ?? null, JSON.stringify(journal.tags ?? []), journal.createdAt, journal.updatedAt],
+    [journal.id, journal.userId ?? null, journal.title ?? null, journal.content ?? journal.notes ?? '', journal.moodScore ?? null, JSON.stringify(journal.tags ?? []), mysqlDateTime(journal.createdAt), mysqlDateTime(journal.updatedAt)],
   );
   return response.status(201).json(journal);
 });
@@ -204,8 +205,11 @@ app.post('/api/chat', (request, response) => {
   };
   return database.execute(
     'INSERT INTO chat_messages (id, user_id, content, is_from_user, message_type, sent_at) VALUES (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?)',
-    [message.id, message.userId ?? null, message.content, true, 'text', message.timestamp, reply.id, reply.userId ?? null, reply.content, false, reply.messageType, reply.timestamp],
-  ).then(() => response.status(201).json({ message, reply })).catch(() => response.status(500).json({ message: 'Gagal menyimpan percakapan' }));
+    [message.id, message.userId ?? null, message.content, true, 'text', mysqlDateTime(message.timestamp), reply.id, reply.userId ?? null, reply.content, false, reply.messageType, mysqlDateTime(reply.timestamp)],
+  ).then(() => response.status(201).json({ message, reply })).catch((error) => {
+    console.error('Failed to save chat messages:', error.message);
+    return response.status(500).json({ message: 'Gagal menyimpan percakapan' });
+  });
 });
 
 app.get('/api/chat', async (_request, response) => {

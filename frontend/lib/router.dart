@@ -11,6 +11,7 @@ import 'screens/onboarding/accessibility_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/home/chat_screen.dart';
 import 'screens/home/journal_screen.dart';
+import 'screens/home/journal_entries_screen.dart';
 import 'screens/home/bisindo_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/main_navigation.dart';
@@ -32,18 +33,12 @@ final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
   routes: [
     // Entry Flow (Screens 1-10)
-    GoRoute(
-      path: '/splash',
-      builder: (context, state) => const SplashScreen(),
-    ),
+    GoRoute(path: '/splash', builder: (context, state) => const SplashScreen()),
     GoRoute(
       path: '/onboarding',
       builder: (context, state) => const OnboardingScreen(),
     ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
+    GoRoute(path: '/login', builder: (context, state) => const LoginScreen()),
     GoRoute(
       path: '/admin',
       builder: (context, state) => const AdminDashboardScreen(),
@@ -75,22 +70,18 @@ final GoRouter appRouter = GoRouter(
 
     // Main Navigation with Bottom NavBar (Screens 11, 17, 23, 18, [and more in bottom nav])
     ShellRoute(
-      builder: (context, state, child) => MainNavigation(
-        child: child,
-        location: state.uri.toString(),
-      ),
+      builder: (context, state, child) =>
+          MainNavigation(child: child, location: state.uri.toString()),
       routes: [
-        GoRoute(
-          path: '/home',
-          builder: (context, state) => const HomeScreen(),
-        ),
-        GoRoute(
-          path: '/chat',
-          builder: (context, state) => const ChatScreen(),
-        ),
+        GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
+        GoRoute(path: '/chat', builder: (context, state) => const ChatScreen()),
         GoRoute(
           path: '/journal',
           builder: (context, state) => const JournalScreen(),
+        ),
+        GoRoute(
+          path: '/journal-entries',
+          builder: (context, state) => const JournalEntriesScreen(),
         ),
         GoRoute(
           path: '/bisindo',
@@ -138,10 +129,7 @@ final GoRouter appRouter = GoRouter(
       path: '/help-center',
       builder: (context, state) => const HelpCenterScreen(),
     ),
-    GoRoute(
-      path: '/about',
-      builder: (context, state) => const AboutScreen(),
-    ),
+    GoRoute(path: '/about', builder: (context, state) => const AboutScreen()),
     GoRoute(
       path: '/privacy',
       builder: (context, state) => const PrivacyScreen(),

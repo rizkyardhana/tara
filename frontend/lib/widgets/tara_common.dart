@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
+class TaraPastelBackground extends StatelessWidget {
+  final Widget child;
+
+  const TaraPastelBackground({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: TaraColors.authBackgroundGradient,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: child,
+    );
+  }
+}
+
 /// Reusable card component dengan rounded corners besar & shadow lembut
 class TaraCard extends StatelessWidget {
   final Widget child;
@@ -40,10 +60,7 @@ class TaraCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(borderRadius),
-          child: Padding(
-            padding: padding,
-            child: child,
-          ),
+          child: Padding(padding: padding, child: child),
         ),
       ),
     );
@@ -165,9 +182,7 @@ class TaraPill extends StatelessWidget {
               ? (selectedColor ?? TaraColors.blue)
               : (unselectedColor ?? TaraColors.bgCoolWhite),
           borderRadius: BorderRadius.circular(20),
-          border: !isSelected
-              ? Border.all(color: TaraColors.divider)
-              : null,
+          border: !isSelected ? Border.all(color: TaraColors.divider) : null,
         ),
         child: Text(
           label,
@@ -191,20 +206,12 @@ class TaraDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (text == null) {
-      return Container(
-        height: 1,
-        color: TaraColors.divider,
-      );
+      return Container(height: 1, color: TaraColors.divider);
     }
 
     return Row(
       children: [
-        const Expanded(
-          child: Divider(
-            color: TaraColors.divider,
-            thickness: 1,
-          ),
-        ),
+        const Expanded(child: Divider(color: TaraColors.divider, thickness: 1)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
@@ -216,12 +223,7 @@ class TaraDivider extends StatelessWidget {
             ),
           ),
         ),
-        const Expanded(
-          child: Divider(
-            color: TaraColors.divider,
-            thickness: 1,
-          ),
-        ),
+        const Expanded(child: Divider(color: TaraColors.divider, thickness: 1)),
       ],
     );
   }

@@ -9,10 +9,10 @@ class TaraTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: TaraColors.bgCoolWhite,
-      
+
       // Primary color
       primaryColor: TaraColors.blue,
-      
+
       // Color scheme
       colorScheme: ColorScheme.light(
         primary: TaraColors.blue,
@@ -25,14 +25,13 @@ class TaraTheme {
         onTertiary: Colors.white,
         onError: Colors.white,
         onSurface: TaraColors.textDeepIndigo,
-        onBackground: TaraColors.textDeepIndigo,
       ),
 
       // AppBar theme
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         iconTheme: const IconThemeData(color: TaraColors.textDeepIndigo),
         titleTextStyle: GoogleFonts.plusJakartaSans(
           fontSize: 18,
@@ -44,34 +43,35 @@ class TaraTheme {
       // Card theme
       cardTheme: CardThemeData(
         color: Colors.white,
-        elevation: 2,
+        elevation: 1,
         shadowColor: TaraColors.shadowColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
 
       // Input decoration theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: TaraColors.bgCoolWhite,
+        fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: TaraColors.divider),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: TaraColors.divider),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: TaraColors.blue, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: TaraColors.error),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         hintStyle: GoogleFonts.plusJakartaSans(
           color: TaraColors.textMuted,
           fontSize: 14,
@@ -86,7 +86,7 @@ class TaraTheme {
           foregroundColor: Colors.white,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: GoogleFonts.plusJakartaSans(
@@ -101,7 +101,7 @@ class TaraTheme {
           foregroundColor: TaraColors.blue,
           side: const BorderSide(color: TaraColors.divider),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           textStyle: GoogleFonts.plusJakartaSans(

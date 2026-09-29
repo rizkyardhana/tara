@@ -8,6 +8,7 @@ class TaraGradientButton extends StatelessWidget {
   final double? width;
   final double? height;
   final bool isLoading;
+  final List<Color>? gradientColors;
 
   const TaraGradientButton({
     Key? key,
@@ -16,6 +17,7 @@ class TaraGradientButton extends StatelessWidget {
     this.width,
     this.height,
     this.isLoading = false,
+    this.gradientColors,
   }) : super(key: key);
 
   @override
@@ -24,8 +26,8 @@ class TaraGradientButton extends StatelessWidget {
       width: width ?? double.infinity,
       height: height ?? 48,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: TaraColors.taraGradient,
+        gradient: LinearGradient(
+          colors: gradientColors ?? TaraColors.taraGradient,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
